@@ -71,9 +71,96 @@ Graph is a data structure that consists of Vertices(Node) and Edges. The number 
 
 ## Process of BFS
 * 1. Set the starting vertex and mark it as visited and place it in the queue.
-* 2. removing a vertex from queue and mark it as current node and find all the nodes unvisited && connected to the current node.
+* 2. mark top element of queue as current node and remove it from queue find all the nodes unvisited && connected to the current node.
 * 3. mark them as visited and insert them in the queue.
 * 4. repeat the step from 2 to 3
 * when we assume all the verticies are reachable from the starting vertex, each vertex will be inserted in queue exactly once. Therefore, O(V+E) for list and O(V^2) for matrix.
+## Implementation of BF traveral for connected graph
+```
+vector<int> adj[10];
+bool vis[10];
+queue<int> q;
+vis[1] = true;
+q.push(1);
+while(!q.empty())
+{
+  int cur = q.top();
+  q.pop();
+  cout << cur;
+  for(int i = 0; i < adj[cur].size(); i++)
+  {
+    if(vis[adj[cur][i]]) continue;
+    vis[i] = true;
+    q.push(adj[cur][i]);
+  }
+}
+```
+## Implementation of algorithm that finds the distance from the starting node using BFS
 
-## Implementation of BF traveral
+```
+vector<int> adj[10];
+int dis[10];
+for(int i = 0; i < 10; i++) dis[i] = -1;
+queue<int> q;
+dis[1] = 0;
+q.push(1);
+while(!q.empty())
+{
+  int cur = q.top();
+  q.pop();
+  cout << cur;
+  for(int i = 0; i < adj[cur].size(); i++)
+  {
+    if(dis[adj[cur][i]] != -1) continue;
+    dis[i] = dis[cur]] + 1;
+    q.push(adj[cur][i]);
+  }
+}
+```
+
+# DFS
+
+## Process of DFS
+* 1. Set the starting vertex and mark it as visited and place it in the stack.
+* 2. mark top element of queue as current node and remove it from stack find all the nodes that are unvisited && connected to the current node.
+* 3. mark them as visited and insert them in the stack.
+* 4. repeat the step from 2 to 3
+* when we assume all the verticies are reachable from the starting vertex, each vertex will be inserted in stack exactly once. Therefore, O(V+E) for list and O(V^2) for matrix.
+
+## Implementation of BF traveral for connected graph using stack STL
+```
+vector<int> adj[10];
+bool vis[10];
+stack<int> s;
+vis[1] = true;
+s.push(1);
+while(!s.empty())
+{
+  int cur = s.top();
+  q.pop();
+  cout << cur;
+  for(int i = 0; i < adj[cur].size(); i++)
+  {
+    if(vis[adj[cur][i]]) continue;
+    vis[i] = true;
+    s.push(adj[cur][i]);
+  }
+}
+```
+## Implementation of BF traveral for connected graph using recursion
+```
+vector<int> adj[10];
+bool vis[10];
+vis[1] = true;
+dfs(1);
+void dfs(int a)
+{
+  cout << a;
+  for(int i = 0; i < adj[a].size(); i++)
+  {
+    if(vis[adj[a][i]] == true) continue;
+    vis[adj[a][i]] = true;
+    dfs(adj[a][i]);
+  }
+}
+```
